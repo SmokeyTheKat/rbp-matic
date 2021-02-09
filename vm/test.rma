@@ -1,0 +1,4 @@
+mov r0, 69
+add r0, 59
+mov r1, r0
+syscall 0
