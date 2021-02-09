@@ -13,6 +13,8 @@ int main(int argc, char** argv)
 {
 	read_args(argc, argv);
 	ddString file_path = args_get_value(make_constant_ddString("__INPUT_FILE"));
+	if (ddString_compare(file_path, make_constant_ddString("ERROR")))
+		compile_error("NO INPUT FILE. USE \"rma --help\" FOR MORE INFOMATION.");
 	ddString file_buffer = read_file(file_path.cstr);
 	sizet token_count;
 	struct token* tokens = lexer_main(file_buffer, &token_count);

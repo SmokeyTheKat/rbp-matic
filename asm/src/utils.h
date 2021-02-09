@@ -102,7 +102,7 @@ ddString read_file(const char* path)
 
 void compile_error(char* message)
 {
-	ddPrintf("\x1b[38;2;255;0;0m%s\n", message);
+	ddPrintf("[\x1b[38;2;255;0;0mERROR\x1b[38;2;255;255;255m] %s\n", message);
 	exit(1);
 }
 
