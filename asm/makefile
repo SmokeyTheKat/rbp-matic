@@ -3,5 +3,5 @@ all:
 install:
 	sudo cp ./rma /usr/bin/rma
 tc: all
-	./rmasm test.rma -o out
+	./rma test.rma -o out
 	xxd -b out

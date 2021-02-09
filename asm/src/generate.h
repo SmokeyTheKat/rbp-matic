@@ -64,7 +64,6 @@ void emit_data(struct token* tokens, int* pos, struct buffer* buf)
 			buf->data[buf->len++] = *(((char*)(&value))+5);
 			buf->data[buf->len++] = *(((char*)(&value))+6);
 			buf->data[buf->len++] = *(((char*)(&value))+7);
-			buf->len += 8;
 			(*pos)++;
 		} break;
 		case TKN_PREFIX:
@@ -84,7 +83,6 @@ void emit_data(struct token* tokens, int* pos, struct buffer* buf)
 					short value = tokens[*(pos)+1].opc.num;
 					buf->data[buf->len++] = *(((char*)(&value))+0);
 					buf->data[buf->len++] = *(((char*)(&value))+1);
-					buf->len += 2;
 				} break;
 				case PFX_DWORD:
 				{
@@ -96,7 +94,6 @@ void emit_data(struct token* tokens, int* pos, struct buffer* buf)
 					buf->data[buf->len++] = *(((char*)(&value))+3);
 					int * vptr = (int*)&(buf->data[buf->len]);
 					*vptr = value;
-					buf->len += 4;
 				} break;
 				case PFX_QWORD:
 				{
@@ -110,7 +107,6 @@ void emit_data(struct token* tokens, int* pos, struct buffer* buf)
 					buf->data[buf->len++] = *(((char*)(&value))+5);
 					buf->data[buf->len++] = *(((char*)(&value))+6);
 					buf->data[buf->len++] = *(((char*)(&value))+7);
-					buf->len += 8;
 				} break;
 			}
 			(*pos) += 2;

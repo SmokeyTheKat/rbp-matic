@@ -80,7 +80,7 @@ const struct opc_id PREFIX_OPC_IDS[] = {
 
 void write_file(const char* path, struct buffer file)
 {
-	FILE* fp = fopen(path, "wb");
+	FILE* fp = fopen(path, "w");
 	if (fp == null) return;
 	fwrite(file.data, sizeof(char), file.len, fp);
 	fclose(fp);
