@@ -1,2 +1,3 @@
-mov r0, 69
-add r0, 59
+mov g0, byte 69
+mov r3, byte 59
+exit

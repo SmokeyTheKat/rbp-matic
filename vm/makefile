@@ -3,4 +3,5 @@ all:
 install:
 	sudo cp ./rmvm /usr/bin/rmvm
 tc: all
+	rma test.rma -o test
 	./rmvm ./test

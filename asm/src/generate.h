@@ -35,6 +35,8 @@ struct buffer generate_main(struct token* tokens, sizet token_count)
 				buf.data[buf.len++] = tokens[i++].opc.com;
 				emit_data(tokens, &i, &buf);
 				break;
+			case COM_EXIT:
+				buf.data[buf.len++] = tokens[i++].opc.com;
 			default:
 				break;
 		}

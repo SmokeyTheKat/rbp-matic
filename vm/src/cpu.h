@@ -12,6 +12,7 @@ struct cpu;
 struct cpu make_cpu(void);
 void cpu_load_program(struct cpu* cpu, const struct program program);
 void cpu_emulate(struct cpu* cpu);
+struct opc cpu_pull_value(struct cpu* cpu);
 
 struct regs
 {
@@ -87,13 +88,76 @@ void cpu_load_program(struct cpu* cpu, const struct program program)
 
 void cpu_emulate(struct cpu* cpu)
 {
-	bool activated = true;
-	for (int i = 0; i < 50; i++)
+	bool exit = false;
+	while (!exit)
 	{
-		byte cur = *((byte*)(cpu->regs.ip++));
-		ddPrintf("%d ", cur);
+		byte com = *((byte*)(cpu->regs.ip++));
+		switch (com)
+		{
+			case COM_EXIT:
+			{
+				exit = true;
+			} break;
+			case COM_MOV:
+			{
+				ddPrintf("mov ");
+				struct opc lhs = cpu_pull_value(cpu);
+				struct opc rhs = cpu_pull_value(cpu);
+			} break;
+			default:
+				break;
+		}
+		ddPrint_nl();
 	}
-	ddPrint_nl();
+}
+
+struct opc cpu_pull_value(struct cpu* cpu)
+{
+	struct opc output;
+	output.type = -1;
+	output.deref_as = 0;
+	byte nxt = *((byte*)(cpu->regs.ip++));
+	switch (nxt)
+	{
+		case RCODE_REGISTER:
+		{
+			output.type = TKN_REGISTER;
+			byte reg = *((byte*)(cpu->regs.ip++));
+			output.opc.reg = reg;
+			ddPrintf("reg: %d, ", reg);
+		} break;
+		case RCODE_BYTE:
+		{
+			output.type = TKN_NUMBER;
+			byte num = *((byte*)(cpu->regs.ip++));
+			ddPrintf("num: %d, ", num);
+		} break;
+		case RCODE_WORD:
+		{
+			output.type = TKN_NUMBER;
+			short num = *((short*)(cpu->regs.ip));
+			cpu->regs.ip += 2;
+			ddPrintf("num: %d, ", num);
+			
+		} break;
+		case RCODE_DWORD:
+		{
+			output.type = TKN_NUMBER;
+			int num = *((int*)(cpu->regs.ip));
+			cpu->regs.ip += 4;
+			ddPrintf("num: %d, ", num);
+			
+		} break;
+		case RCODE_QWORD:
+		{
+			output.type = TKN_NUMBER;
+			long num = *((long*)(cpu->regs.ip));
+			cpu->regs.ip += 8;
+			ddPrintf("num: %d, ", num);
+			
+		} break;
+	}
+	return output;
 }
 
 #endif

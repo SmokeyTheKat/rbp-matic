@@ -18,6 +18,7 @@
 #define COM_MUL 0x33
 #define COM_DIV 0x34
 #define COM_SYSCALL 0x35
+#define COM_EXIT 0x36
 
 typedef char byte;
 
@@ -70,6 +71,7 @@ const struct opc_id OPERATOR_OPC_IDS[] = {
 	{ "mul", COM_MUL },
 	{ "div", COM_DIV },
 	{ "syscall", COM_SYSCALL },
+	{ "exit", COM_EXIT },
 };
 const struct opc_id PREFIX_OPC_IDS[] = {
 	{ "byte", PFX_BYTE },
