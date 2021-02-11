@@ -62,7 +62,7 @@ struct buffer read_file(const char* path)
 	FILE* fp = fopen(path, "rb");
 	if (fp == null) return output;
 	fseek(fp, 0L, SEEK_END);
-	long nb = ftell(fp) - 1;
+	long nb = ftell(fp);
 	fseek(fp, 0L, SEEK_SET);
 	byte* buffer = (byte*)calloc(nb+1, sizeof(byte));
 	fread(buffer, sizeof(byte), nb, fp);

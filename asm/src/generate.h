@@ -31,10 +31,10 @@ struct buffer generate_main(struct token* tokens, sizet token_count)
 				break;
 			case COM_MUL:
 			case COM_DIV:
-			case COM_SYSCALL:
 				buf.data[buf.len++] = tokens[i++].opc.com;
 				emit_data(tokens, &i, &buf);
 				break;
+			case COM_SYSCALL:
 			case COM_EXIT:
 				buf.data[buf.len++] = tokens[i++].opc.com;
 			default:

@@ -1,3 +1,4 @@
-mov g0, byte 69
-mov r3, byte 59
+mov f0, 0
+mov f1, 69420
+syscall
 exit

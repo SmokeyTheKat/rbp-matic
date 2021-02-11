@@ -62,6 +62,7 @@ struct opc_id
 const int REGISTER_IDS[120] = {
 	['r'] = 0,
 	['g'] = 10,
+	['f'] = 20,
 };
 
 const struct opc_id OPERATOR_OPC_IDS[] = {
