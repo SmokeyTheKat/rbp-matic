@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "./utils.h"
+#include "./syscalls.h"
 
 struct program;
 struct regs;
@@ -174,7 +175,7 @@ void cpu_emulate(struct cpu* cpu)
 			case COM_EXIT:
 			{
 				pexit = true;
-				ddPrintf("exit\n");
+				//ddPrintf("exit\n");
 			} break;
 			case COM_SYSCALL:
 			{
@@ -219,15 +220,6 @@ void cpu_emulate(struct cpu* cpu)
 		//ddPrint_nl();
 	}
 }
-
-void sc0(long f[10])
-{
-	ddPrintf("NUMBER: %d\n", f[1]);
-}
-
-const void (*cpu_syscalls[])(long f[10]) = {
-	sc0,
-};
 
 void cpu_execute_syscall(struct cpu* cpu)
 {

@@ -22,6 +22,8 @@ struct buffer generate_main(struct token* tokens, sizet token_count)
 		if (tokens[i].type != TKN_COMMAND) compile_error("INCORRECT OPC ORDER");
 		switch (tokens[i].opc.com)
 		{
+			case GEN_SLB:
+
 			case COM_MOV:
 			case COM_ADD:
 			case COM_SUB:
@@ -35,6 +37,7 @@ struct buffer generate_main(struct token* tokens, sizet token_count)
 				emit_data(tokens, &i, &buf);
 				break;
 			case COM_SYSCALL:
+			case COM_JMP:
 			case COM_EXIT:
 				buf.data[buf.len++] = tokens[i++].opc.com;
 			default:
@@ -48,6 +51,10 @@ void emit_data(struct token* tokens, int* pos, struct buffer* buf)
 {
 	switch (tokens[*pos].type)
 	{
+		case GEN_LLB:
+		{
+			
+		} break;
 		case TKN_REGISTER:
 		{
 			buf->data[buf->len++] = RCODE_REGISTER;

@@ -7,6 +7,9 @@
 #define TKN_PREFIX 0x03
 #define TKN_COMMAND 0x04
 
+#define GEN_LLB 0x05
+#define GEN_SLB 0x06
+
 #define PFX_BYTE 0x00
 #define PFX_WORD 0x01
 #define PFX_DWORD 0x02
@@ -19,12 +22,14 @@
 #define COM_DIV 0x34
 #define COM_SYSCALL 0x35
 #define COM_EXIT 0x36
+#define COM_JMP 0x37
 
 typedef char byte;
 
 struct buffer;
 struct token;
 struct command;
+struct label;
 union opc;
 
 void write_file(const char* path, struct buffer file);
@@ -37,6 +42,13 @@ union opc
 	ddString str;
 	long com;
 	long pfx;
+	ddString lbl;
+	int sbl;
+};
+struct label
+{
+	ddString name;
+	long value;
 };
 struct token
 {

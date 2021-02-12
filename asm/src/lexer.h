@@ -39,10 +39,56 @@ struct token* lexer_main(ddString file, sizet* _token_count)
 	return tokens;
 }
 
+
+struct label labels[100];
+int label_count = 0;
+
+bool label_exists(ddString name)
+{
+	for (int i = 0; i < label_count; i++)
+		if (ddString_compare(labels[i].name, name))
+			return true;
+	return false;
+}
+
+int register_label(ddString name)
+{
+	labels[label_count].name = name;
+	return label_count++;
+}
+
 static void tokenize(char chr)
 {
 	switch (chr)
 	{
+		case '.':
+		{
+			while (peek(0) != ' ' && peek(0) != '\n' && peek(0) != 0)
+			{
+				ddString_push_char_back(&literal, next());
+			}
+			if (label_exists(literal))
+			{
+				union opc opc;
+				opc.lbl = literal;
+				set_token(GEN_LLB, opc);
+			}
+			else
+			{
+				int ln = register_label(literal);
+				union opc opc;
+				opc.sbl = ln;
+				set_token(GEN_SLB, opc);
+			}
+		} break;
+		case '\'':
+		{
+			if (peek(1) != '\'') compile_error("INPROPER CHARACTER LITERAL");
+			union opc opc;
+			opc.num = next();
+			set_token(TKN_NUMBER, opc);
+			next();
+		} break;
 		case 'a' ... 'z':
 		case 'A' ... 'Z':
 		case '0' ... '9':
