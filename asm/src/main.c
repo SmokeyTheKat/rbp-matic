@@ -18,6 +18,7 @@ int main(int argc, char** argv)
 	ddString file_buffer = read_file(file_path.cstr);
 	sizet token_count;
 	struct token* tokens = lexer_main(file_buffer, &token_count);
+	generate_main(tokens, token_count);
 	struct buffer code = generate_main(tokens, token_count);
 	write_file(args_get_value(make_constant_ddString("-o")).cstr, code);
 	return 0;

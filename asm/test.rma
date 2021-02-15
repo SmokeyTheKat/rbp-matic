@@ -1,1 +1,5 @@
-mov r1, 'a';
+mov r1, .labe2
+mov r1, qword 3;
+..label1
+..label2
+..label3

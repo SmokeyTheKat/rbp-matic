@@ -43,12 +43,12 @@ struct token* lexer_main(ddString file, sizet* _token_count)
 struct label labels[100];
 int label_count = 0;
 
-bool label_exists(ddString name)
+int get_label_index(ddString name)
 {
 	for (int i = 0; i < label_count; i++)
 		if (ddString_compare(labels[i].name, name))
-			return true;
-	return false;
+			return i;
+	return -1;
 }
 
 int register_label(ddString name)
@@ -63,23 +63,29 @@ static void tokenize(char chr)
 	{
 		case '.':
 		{
+			bool set_label = false;
+			if (peek(0) == '.')
+			{
+				set_label = true;
+			}
 			while (peek(0) != ' ' && peek(0) != '\n' && peek(0) != 0)
 			{
 				ddString_push_char_back(&literal, next());
 			}
-			if (label_exists(literal))
-			{
-				union opc opc;
-				opc.lbl = literal;
-				set_token(GEN_LLB, opc);
-			}
-			else
+			if (set_label)
 			{
 				int ln = register_label(literal);
 				union opc opc;
 				opc.sbl = ln;
 				set_token(GEN_SLB, opc);
 			}
+			else
+			{
+				union opc opc;
+				opc.lbl = literal;
+				set_token(GEN_LLB, opc);
+			}
+			reset_literal();
 		} break;
 		case '\'':
 		{
@@ -133,7 +139,7 @@ static void tokenize(char chr)
 			}
 			else
 			{
-				ddPrintf("UNIDENTIFYIED LITERL %s\n", literal.cstr);
+				compile_error(make_format_ddString("UNIDENTIFYIED LITERL %s\n", literal.cstr).cstr);
 			}
 			reset_literal();
 		} break;

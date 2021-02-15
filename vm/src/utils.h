@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <ddcDef.h>
 
 #define TKN_NUMBER 0x00
 #define TKN_STRING 0x01

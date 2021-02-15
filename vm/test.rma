@@ -1,13 +1,4 @@
-mov f0, 1
-mov f1, 'Y'
-syscall
-mov f1, 'O'
-syscall
-mov f1, 10
-syscall
-mov f0, 2
-syscall
-add f1, 1
-mov f0, 1
+mov f0, qword 0
+mov f1, 69420
 syscall
 exit

@@ -20,13 +20,13 @@ void read_args(int argc, char** argv)
 		ddString dsarg = make_ddString(argv[i]);
 		if (ddString_compare_cstring(dsarg, "--help") || ddString_compare_cstring(dsarg, "-help"))
 		{
-			ddPrint_cstring_nl("rmasm");
-			ddPrint_cstring_nl("usage: rma [-OPTIONS...] file");
-			ddPrint_cstring_nl("options:");
-			ddPrint_cstring_nl("	-o			output rbp-matic executable file");
-			ddPrint_cstring_nl("	--debug			debug logs");
-			ddPrint_cstring_nl("all paramaters are passed as macros to the compiler.");
-			ddPrint_cstring_nl("docs: https://ddmo.rf.gd/rbp-matic/rmasm/");
+			ddPrint_cstring("rmasm\n");
+			ddPrint_cstring("usage: rma [-OPTIONS...] file\n");
+			ddPrint_cstring("options:\n");
+			ddPrint_cstring("	-o			output rbp-matic executable file\n");
+			ddPrint_cstring("	--debug			debug logs\n");
+			ddPrint_cstring("all paramaters are passed as macros to the compiler.\n");
+			ddPrint_cstring("docs: https://ddmo.rf.gd/rbp-matic/rmasm/\n");
 			exit(0);
 		}
 		else if (ddString_compare_cstring(dsarg, "-o"))
